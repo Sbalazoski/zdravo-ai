@@ -3,6 +3,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)' }}>
+      
       {/* Header */}
       <header style={{
         borderBottom: '1px solid #e5e7eb',
@@ -121,36 +122,12 @@ export default function Home() {
             marginTop: '5rem'
           }}>
             {[
-              {
-                icon: '🌍',
-                title: 'Universal Capture',
-                description: 'Works on ChatGPT, Claude, Gemini, Copilot, and more'
-              },
-              {
-                icon: '🤖',
-                title: 'AI-Powered',
-                description: 'Auto-tags and organizes your clips intelligently'
-              },
-              {
-                icon: '🔍',
-                title: 'Semantic Search',
-                description: 'Find clips by meaning, not just keywords'
-              },
-              {
-                icon: '💾',
-                title: 'Never Lose Content',
-                description: 'All your AI conversations in one searchable place'
-              },
-              {
-                icon: '⚡',
-                title: 'Lightning Fast',
-                description: 'Capture with one click or keyboard shortcut'
-              },
-              {
-                icon: '📤',
-                title: 'Export Anywhere',
-                description: 'Download as files, push to GitHub, or export to tools'
-              }
+              { icon: '🌍', title: 'Universal Capture', description: 'Works on ChatGPT, Claude, Gemini, Copilot, and more' },
+              { icon: '🤖', title: 'AI-Powered', description: 'Auto-tags and organizes your clips intelligently' },
+              { icon: '🔍', title: 'Semantic Search', description: 'Find clips by meaning, not just keywords' },
+              { icon: '💾', title: 'Never Lose Content', description: 'All your AI conversations in one searchable place' },
+              { icon: '⚡', title: 'Lightning Fast', description: 'Capture with one click or keyboard shortcut' },
+              { icon: '📤', title: 'Export Anywhere', description: 'Download as files, push to GitHub, or export to tools' }
             ].map((feature, i) => (
               <div key={i} style={{
                 padding: '1.5rem',
@@ -160,20 +137,11 @@ export default function Home() {
                 border: '1px solid #f3f4f6',
                 transition: 'box-shadow 0.2s'
               }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-                  {feature.icon}
-                </div>
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: '600',
-                  marginBottom: '0.5rem',
-                  color: '#111827'
-                }}>
+                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{feature.icon}</div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: '#111827' }}>
                   {feature.title}
                 </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.5' }}>
-                  {feature.description}
-                </p>
+                <p style={{ color: '#4b5563', lineHeight: '1.5' }}>{feature.description}</p>
               </div>
             ))}
           </div>
@@ -198,4 +166,30 @@ export default function Home() {
             color: 'white',
             marginBottom: '1rem'
           }}>
-            Ready to get st
+            Ready to get started?
+          </h2>
+          <p style={{
+            fontSize: '1.25rem',
+            color: 'rgba(191,219,254,0.8)',
+            marginBottom: '2rem'
+          }}>
+            Install the extension and start capturing in seconds
+          </p>
+          <Link href="#install" style={{
+            padding: '1rem 2rem',
+            background: 'white',
+            color: '#2563eb',
+            borderRadius: '0.5rem',
+            fontWeight: '600',
+            textDecoration: 'none',
+            fontSize: '1.125rem',
+            boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+            transition: 'all 0.2s'
+          }}>
+            Install Free Extension
+          </Link>
+        </div>
+      </section>
+    </div>
+  )
+}
