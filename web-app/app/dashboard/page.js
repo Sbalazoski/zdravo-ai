@@ -85,11 +85,8 @@ return (
     {/* Header */}
     <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-        <img 
-          src="/logo.png" 
-          alt="Zdravo AI"
-          style={{ height: '36px', width: 'auto' }}
-        />
+       <img src="/logo-white.png" alt="Zdravo AI" style={{ height: '32px', marginRight: '0.5rem' }} />
+Zdravo AI
         <h1 style={{ fontSize: '2rem', margin: 0 }}>Zdravo AI</h1>
       </div>
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
