@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# 🦄 Zdravo AI
 
 Capture, organize, and search AI outputs from anywhere.
@@ -57,3 +58,6 @@ zdravo-ai/
 4. Deploy web app
 5. Update API_URL in content.js
 6. Launch! 🚀
+=======
+# zdravo-ai
+>>>>>>> f7a502d40d3aca737abd74f8888c53abb35d16b0
