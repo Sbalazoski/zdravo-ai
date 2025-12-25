@@ -6,6 +6,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 })
 
+// POST: Search clips
 export async function POST(request) {
   try {
     const { query, userId } = await request.json()
@@ -13,9 +14,11 @@ export async function POST(request) {
 
     const isPro = await checkIfPro(uid)
 
+    let result
+
     if (!isPro) {
       // Free tier: Basic keyword search
-      const result = await sql`
+      result = await sql`
         SELECT *
         FROM clips
         WHERE user_id = ${uid}
@@ -33,7 +36,7 @@ export async function POST(request) {
       })
     }
 
-    // Pro tier: Semantic search with embeddings
+    // Pro tier: Semantic search using embeddings
     const embeddingResponse = await openai.embeddings.create({
       model: 'text-embedding-3-small',
       input: query
@@ -41,9 +44,8 @@ export async function POST(request) {
 
     const embeddingArray = embeddingResponse.data[0].embedding
 
-    // Vector similarity search in Postgres
-    // Use the `<->` operator for cosine similarity with pgvector
-    const result = await sql`
+    // Vector similarity search using pgvector in Postgres
+    result = await sql`
       SELECT *,
              embedding <-> ${embeddingArray}::vector AS distance
       FROM clips
@@ -66,6 +68,7 @@ export async function POST(request) {
   }
 }
 
+// Helper: Check if user is on Pro or Team plan
 async function checkIfPro(userId) {
   const result = await sql`SELECT plan FROM users WHERE id = ${userId}`
   const plan = result.rows[0]?.plan || 'free'
