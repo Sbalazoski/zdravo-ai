@@ -1,6 +1,4 @@
-﻿-- Run this in Vercel Postgres dashboard
-
-CREATE TABLE users (
+﻿CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   name VARCHAR(255),

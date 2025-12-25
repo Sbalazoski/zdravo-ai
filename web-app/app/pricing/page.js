@@ -1,4 +1,3 @@
-## FILE 9: app/pricing/page.js
 ```javascript
 import Link from 'next/link'
 
@@ -69,7 +68,7 @@ export default function Pricing() {
         
           
             
-              🦄 Zdravo AI
+            Zdravo AI
             
           
           

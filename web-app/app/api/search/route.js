@@ -1,4 +1,3 @@
-## FILE 6: app/api/search/route.js
 ```javascript
 import { sql } from '@vercel/postgres'
 import { OpenAI } from 'openai'

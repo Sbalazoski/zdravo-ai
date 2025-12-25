@@ -1,4 +1,3 @@
-## FILE 8: app/dashboard/page.js
 ```javascript
 'use client'
 import { useState, useEffect } from 'react'

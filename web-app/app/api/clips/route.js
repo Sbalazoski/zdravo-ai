@@ -1,4 +1,3 @@
-## FILE 5: app/api/clips/route.js
 ```javascript
 import { sql } from '@vercel/postgres'
 import { NextResponse } from 'next/server'

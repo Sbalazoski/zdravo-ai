@@ -1,4 +1,3 @@
-## FILE 7: app/page.js (Landing Page)
 ```javascript
 import Link from 'next/link'
 
@@ -8,7 +7,7 @@ export default function Home() {
       {/* Header */}
       
         
-          🦄 Zdravo AI
+          Zdravo AI
         
         
           
