@@ -1,4 +1,3 @@
-```javascript
 import { sql } from '@vercel/postgres'
 import { OpenAI } from 'openai'
 import { NextResponse } from 'next/server'
@@ -10,14 +9,16 @@ const openai = new OpenAI({
 export async function POST(request) {
   try {
     const { query, userId } = await request.json()
-    
-    const isPro = await checkIfPro(userId || 1)
-    
+    const uid = userId || 1
+
+    const isPro = await checkIfPro(uid)
+
     if (!isPro) {
       // Free tier: Basic keyword search
       const result = await sql`
-        SELECT * FROM clips
-        WHERE user_id = ${userId || 1}
+        SELECT *
+        FROM clips
+        WHERE user_id = ${uid}
           AND (
             content ILIKE ${'%' + query + '%'}
             OR title ILIKE ${'%' + query + '%'}
@@ -25,37 +26,37 @@ export async function POST(request) {
         ORDER BY created_at DESC
         LIMIT 20
       `
-      
+
       return NextResponse.json({
         results: result.rows,
         type: 'keyword'
       })
     }
-    
+
     // Pro tier: Semantic search with embeddings
-    const queryEmbedding = await openai.embeddings.create({
+    const embeddingResponse = await openai.embeddings.create({
       model: 'text-embedding-3-small',
       input: query
     })
-    
-    const embeddingArray = queryEmbedding.data[0].embedding
-    
-    // Vector similarity search
+
+    const embeddingArray = embeddingResponse.data[0].embedding
+
+    // Vector similarity search in Postgres
+    // Use the `<->` operator for cosine similarity with pgvector
     const result = await sql`
-      SELECT *, 
-             (embedding  ${JSON.stringify(embeddingArray)}::vector) as distance
+      SELECT *,
+             embedding <-> ${embeddingArray}::vector AS distance
       FROM clips
-      WHERE user_id = ${userId || 1}
+      WHERE user_id = ${uid}
         AND embedding IS NOT NULL
       ORDER BY distance
       LIMIT 20
     `
-    
+
     return NextResponse.json({
       results: result.rows,
       type: 'semantic'
     })
-    
   } catch (error) {
     console.error('Search error:', error)
     return NextResponse.json(
@@ -70,4 +71,3 @@ async function checkIfPro(userId) {
   const plan = result.rows[0]?.plan || 'free'
   return plan === 'pro' || plan === 'team'
 }
-```
