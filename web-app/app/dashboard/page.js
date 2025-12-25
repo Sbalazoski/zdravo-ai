@@ -1,4 +1,3 @@
-```javascript
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -8,27 +7,25 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [showPaywall, setShowPaywall] = useState(false)
   const [stats, setStats] = useState({ total: 0, thisWeek: 0 })
 
+  // Load clips whenever filter changes
   useEffect(() => {
     loadClips()
   }, [filter])
 
+  // Fetch clips
   const loadClips = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`/api/clips?userId=1&filter=${filter}`)
+      const response = await fetch(`/api/clips?userId=1&filter=${encodeURIComponent(filter)}`)
       const data = await response.json()
       setClips(data.clips || [])
-      
+
       // Calculate stats
       const total = data.clips.length
-      const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000)
-      const thisWeek = data.clips.filter(c => 
-        new Date(c.created_at).getTime() > weekAgo
-      ).length
-      
+      const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+      const thisWeek = data.clips.filter(c => new Date(c.created_at).getTime() > weekAgo).length
       setStats({ total, thisWeek })
     } catch (error) {
       console.error('Load clips error:', error)
@@ -37,15 +34,14 @@ export default function Dashboard() {
     }
   }
 
+  // Handle search
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
       loadClips()
       return
     }
-<div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-  <div style={{ fontSize: '14px', opacity: 0.7 }}>
-    {stats.total} clips • {stats.thisWeek} this week
-  </div>
+
+    setLoading(true)
     try {
       const response = await fetch('/api/search', {
         method: 'POST',
@@ -56,12 +52,14 @@ export default function Dashboard() {
       setClips(data.results || [])
     } catch (error) {
       console.error('Search error:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
+  // Delete clip
   const deleteClip = async (id) => {
     if (!confirm('Delete this clip?')) return
-    
     try {
       await fetch(`/api/clips?id=${id}&userId=1`, { method: 'DELETE' })
       loadClips()
@@ -70,6 +68,7 @@ export default function Dashboard() {
     }
   }
 
+  // Download clip
   const downloadClip = (clip) => {
     const ext = clip.is_code ? (clip.language || 'txt') : 'txt'
     const blob = new Blob([clip.content], { type: 'text/plain' })
@@ -82,207 +81,186 @@ export default function Dashboard() {
   }
 
   return (
-    
+    <div style={{ padding: '2rem', color: 'white', fontFamily: 'sans-serif' }}>
       {/* Header */}
-      
-        
-          
-            
-              🦄 Zdravo AI
-            
-          
-          
-          
-            
-              {stats.total} clips • {stats.thisWeek} this week
-            
-            
-              <Link href="/stats">
-  <button style={{
-    padding: '8px 16px',
-    background: 'rgba(255,255,255,0.1)',
-    border: '1px solid rgba(255,255,255,0.2)',
-    borderRadius: '8px',
-    color: 'white',
-    cursor: 'pointer',
-    fontSize: '14px'
-  }}>
-    📊 Stats
-  </button>
-</Link>
-                Upgrade to Pro
-              
-            
-          
-        
-      
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <h1 style={{ fontSize: '2rem' }}>🦄 Zdravo AI</h1>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div style={{ fontSize: '14px', opacity: 0.7 }}>
+            {stats.total} clips • {stats.thisWeek} this week
+          </div>
+          <Link href="/stats">
+            <button style={{
+              padding: '8px 16px',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '8px',
+              color: 'white',
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}>
+              📊 Stats
+            </button>
+          </Link>
+          <button style={{
+            padding: '8px 16px',
+            background: 'rgba(102,126,234,0.2)',
+            border: 'none',
+            borderRadius: '8px',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}>
+            Upgrade to Pro
+          </button>
+        </div>
+      </header>
 
-      
-        {/* Search & Filters */}
-        
-          
-            <input
-              type="text"
-              placeholder="🔍 Search your clips..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+      {/* Search & Filters */}
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
+        <input
+          type="text"
+          placeholder="🔍 Search your clips..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          style={{
+            flex: 1,
+            padding: '12px 16px',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '8px',
+            color: 'white',
+            fontSize: '16px'
+          }}
+        />
+        <button
+          onClick={handleSearch}
+          style={{
+            padding: '12px 16px',
+            background: 'rgba(102,126,234,0.2)',
+            border: 'none',
+            borderRadius: '8px',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '16px'
+          }}
+        >
+          Search
+        </button>
+      </div>
+
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+        {['all', 'code', 'text'].map(f => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            style={{
+              padding: '8px 16px',
+              background: filter === f ? '#667eea' : 'rgba(255,255,255,0.1)',
+              border: 'none',
+              borderRadius: '6px',
+              color: 'white',
+              cursor: 'pointer',
+              textTransform: 'capitalize'
+            }}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      {/* Clips Grid */}
+      {loading ? (
+        <div>⏳ Loading your clips...</div>
+      ) : clips.length === 0 ? (
+        <div>
+          <div>📋 No clips yet</div>
+          <div>Install the Chrome extension and start capturing!</div>
+          <button style={{
+            padding: '8px 16px',
+            marginTop: '1rem',
+            background: '#667eea',
+            border: 'none',
+            borderRadius: '6px',
+            color: 'white',
+            cursor: 'pointer'
+          }}>
+            Install Extension
+          </button>
+        </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
+          {clips.map(clip => (
+            <div
+              key={clip.id}
               style={{
-                flex: 1,
-                padding: '12px 16px',
-                background: 'rgba(255,255,255,0.1)',
-                border: '1px solid rgba(255,255,255,0.2)',
-                borderRadius: '8px',
-                color: 'white',
-                fontSize: '16px'
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+                padding: '1.5rem',
+                transition: 'transform 0.2s',
+                cursor: 'pointer'
               }}
-            />
-            
-              Search
-            
-          
-
-          
-            {['all', 'code', 'text'].map(f => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                style={{
-                  padding: '8px 16px',
-                  background: filter === f ? '#667eea' : 'rgba(255,255,255,0.1)',
-                  border: 'none',
-                  borderRadius: '6px',
-                  color: 'white',
-                  cursor: 'pointer',
-                  textTransform: 'capitalize'
-                }}
-              >
-                {f}
-              
-            ))}
-          
-        
-
-        {/* Clips Grid */}
-        {loading ? (
-          
-            ⏳
-            Loading your clips...
-          
-        ) : clips.length === 0 ? (
-          
-            📋
-            No clips yet
-            
-              Install the Chrome extension and start capturing!
-            
-            
-              
-                Install Extension
-              
-            
-          
-        ) : (
-          
-            {clips.map(clip => (
-              <div
-                key={clip.id}
-                style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  transition: 'transform 0.2s',
-                  cursor: 'pointer'
-                }}
-                onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                {/* Clip Header */}
-                
-                  
-                    
-                      {clip.title}
-                    
-                    
-                      
-                        {clip.platform}
-                      
-                      {clip.is_code && (
-                        
-                          {clip.language || 'code'}
-                        
-                      )}
-                      {clip.tags?.map(tag => (
-                        
-                          {tag}
-                        
-                      ))}
-                    
-                  
-                
-
-                {/* Content Preview */}
-                
-                  {clip.content.slice(0, 200)}...
-                
-
-                {/* Actions */}
-                
-                  
-                    {new Date(clip.created_at).toLocaleDateString()}
-                  
-                  
-                    <button
-                      onClick={() => navigator.clipboard.writeText(clip.content)}
-                      style={{
-                        padding: '6px 12px',
-                        background: 'rgba(102, 126, 234, 0.2)',
-                        border: 'none',
-                        borderRadius: '6px',
-                        color: 'white',
-                        fontSize: '12px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Copy
-                    
-                    <button
-                      onClick={() => downloadClip(clip)}
-                      style={{
-                        padding: '6px 12px',
-                        background: 'rgba(76, 175, 80, 0.2)',
-                        border: 'none',
-                        borderRadius: '6px',
-                        color: 'white',
-                        fontSize: '12px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Download
-                    
-                    <button
-                      onClick={() => deleteClip(clip.id)}
-                      style={{
-                        padding: '6px 12px',
-                        background: 'rgba(244, 67, 54, 0.2)',
-                        border: 'none',
-                        borderRadius: '6px',
-                        color: 'white',
-                        fontSize: '12px',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Delete
-                    
-                  
-                
-              
-            ))}
-          
-        )}
-      
-    
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+              <h2 style={{ marginBottom: '0.5rem' }}>{clip.title}</h2>
+              <div style={{ fontSize: '12px', opacity: 0.7, marginBottom: '1rem' }}>
+                {clip.platform} {clip.is_code && `• ${clip.language || 'code'}`} {clip.tags?.map(tag => `• ${tag}`)}
+              </div>
+              <div style={{ marginBottom: '1rem' }}>
+                {clip.content.slice(0, 200)}...
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <div style={{ fontSize: '10px', opacity: 0.7 }}>{new Date(clip.created_at).toLocaleDateString()}</div>
+                <button
+                  onClick={() => navigator.clipboard.writeText(clip.content)}
+                  style={{
+                    padding: '6px 12px',
+                    background: 'rgba(102,126,234,0.2)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    color: 'white',
+                    fontSize: '12px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Copy
+                </button>
+                <button
+                  onClick={() => downloadClip(clip)}
+                  style={{
+                    padding: '6px 12px',
+                    background: 'rgba(76,175,80,0.2)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    color: 'white',
+                    fontSize: '12px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Download
+                </button>
+                <button
+                  onClick={() => deleteClip(clip.id)}
+                  style={{
+                    padding: '6px 12px',
+                    background: 'rgba(244,67,54,0.2)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    color: 'white',
+                    fontSize: '12px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
-```
