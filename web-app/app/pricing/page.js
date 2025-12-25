@@ -75,7 +75,9 @@ export default function Pricing() {
             display: 'inline-block',
             marginBottom: '2rem'
           }}>
-            Zdravo AI
+           <div style={{ marginBottom: '2rem' }}>
+  <img src="/logo.png" alt="Zdravo AI" style={{ height: '48px' }} />
+</div> Zdravo AI
           </Link>
           <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>
             Simple, Transparent Pricing
