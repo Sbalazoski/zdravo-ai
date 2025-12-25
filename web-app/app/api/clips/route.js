@@ -10,6 +10,7 @@ export async function GET(request) {
 
   try {
     let result
+
     if (filter === 'code') {
       result = await sql`
         SELECT id, content, title, platform, url, metadata, 
@@ -70,7 +71,6 @@ export async function DELETE(request) {
       DELETE FROM clips
       WHERE id = ${clipId} AND user_id = ${userId}
     `
-
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Delete clip error:', error)
