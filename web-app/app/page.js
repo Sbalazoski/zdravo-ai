@@ -30,8 +30,13 @@ export default function Home() {
             WebkitTextFillColor: 'transparent',
             textDecoration: 'none'
           }}>
-            Zdravo AI
-          </Link>
+           <Link
+  href="/"
+  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+>
+  <img src="/logo.svg" alt="Zdravo AI logo" style={{ height: '24px' }} />
+  Zdravo AI   }}>
+</Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <Link href="/pricing" style={{
               color: '#4b5563',
