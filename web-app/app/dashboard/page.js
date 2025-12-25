@@ -81,7 +81,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ padding: '2rem', color: 'white', fontFamily: 'sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%)', padding: '2rem', color: 'white', fontFamily: 'sans-serif' }}>
       {/* Header */}
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2rem' }}>🦄 Zdravo AI</h1>
@@ -172,19 +172,21 @@ export default function Dashboard() {
 
       {/* Clips Grid */}
       {loading ? (
-        <div>⏳ Loading your clips...</div>
+        <div style={{ textAlign: 'center', padding: '3rem' }}>⏳ Loading your clips...</div>
       ) : clips.length === 0 ? (
-        <div>
-          <div>📋 No clips yet</div>
-          <div>Install the Chrome extension and start capturing!</div>
+        <div style={{ textAlign: 'center', padding: '3rem' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📋</div>
+          <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>No clips yet</div>
+          <div style={{ opacity: 0.7, marginBottom: '2rem' }}>Install the Chrome extension and start capturing!</div>
           <button style={{
-            padding: '8px 16px',
-            marginTop: '1rem',
+            padding: '12px 24px',
             background: '#667eea',
             border: 'none',
-            borderRadius: '6px',
+            borderRadius: '8px',
             color: 'white',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 'bold'
           }}>
             Install Extension
           </button>
@@ -205,57 +207,72 @@ export default function Dashboard() {
               onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
               onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <h2 style={{ marginBottom: '0.5rem' }}>{clip.title}</h2>
+              <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>{clip.title || 'Untitled'}</h2>
               <div style={{ fontSize: '12px', opacity: 0.7, marginBottom: '1rem' }}>
-                {clip.platform} {clip.is_code && `• ${clip.language || 'code'}`} {clip.tags?.map(tag => `• ${tag}`)}
+                {clip.platform} {clip.is_code && `• ${clip.language || 'code'}`} {clip.tags?.map(tag => ` • ${tag}`).join('')}
               </div>
-              <div style={{ marginBottom: '1rem' }}>
+              <pre style={{
+                background: 'rgba(0,0,0,0.3)',
+                padding: '0.75rem',
+                borderRadius: '6px',
+                fontSize: '13px',
+                marginBottom: '1rem',
+                whiteSpace: 'pre-wrap',
+                wordWrap: 'break-word',
+                maxHeight: '150px',
+                overflow: 'hidden'
+              }}>
                 {clip.content.slice(0, 200)}...
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <div style={{ fontSize: '10px', opacity: 0.7 }}>{new Date(clip.created_at).toLocaleDateString()}</div>
-                <button
-                  onClick={() => navigator.clipboard.writeText(clip.content)}
-                  style={{
-                    padding: '6px 12px',
-                    background: 'rgba(102,126,234,0.2)',
-                    border: 'none',
-                    borderRadius: '6px',
-                    color: 'white',
-                    fontSize: '12px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Copy
-                </button>
-                <button
-                  onClick={() => downloadClip(clip)}
-                  style={{
-                    padding: '6px 12px',
-                    background: 'rgba(76,175,80,0.2)',
-                    border: 'none',
-                    borderRadius: '6px',
-                    color: 'white',
-                    fontSize: '12px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Download
-                </button>
-                <button
-                  onClick={() => deleteClip(clip.id)}
-                  style={{
-                    padding: '6px 12px',
-                    background: 'rgba(244,67,54,0.2)',
-                    border: 'none',
-                    borderRadius: '6px',
-                    color: 'white',
-                    fontSize: '12px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Delete
-                </button>
+              </pre>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: '11px', opacity: 0.5 }}>{new Date(clip.created_at).toLocaleDateString()}</div>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(clip.content)
+                      alert('✓ Copied to clipboard!')
+                    }}
+                    style={{
+                      padding: '6px 12px',
+                      background: 'rgba(102,126,234,0.2)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      color: 'white',
+                      fontSize: '12px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Copy
+                  </button>
+                  <button
+                    onClick={() => downloadClip(clip)}
+                    style={{
+                      padding: '6px 12px',
+                      background: 'rgba(76,175,80,0.2)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      color: 'white',
+                      fontSize: '12px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Download
+                  </button>
+                  <button
+                    onClick={() => deleteClip(clip.id)}
+                    style={{
+                      padding: '6px 12px',
+                      background: 'rgba(244,67,54,0.2)',
+                      border: 'none',
+                      borderRadius: '6px',
+                      color: 'white',
+                      fontSize: '12px',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}
