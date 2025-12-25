@@ -2,18 +2,51 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom, #f9fafb, white)' }}>
       {/* Header */}
-      <header className="border-b bg-white/50 backdrop-blur-sm sticky top-0 z-50">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <header style={{
+        borderBottom: '1px solid #e5e7eb',
+        background: 'rgba(255,255,255,0.5)',
+        backdropFilter: 'blur(10px)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 50
+      }}>
+        <nav style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 1rem',
+          height: '64px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <Link href="/" style={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            background: 'linear-gradient(to right, #2563eb, #7c3aed)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            textDecoration: 'none'
+          }}>
             Zdravo AI
           </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/pricing" className="text-gray-600 hover:text-gray-900 transition-colors">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <Link href="/pricing" style={{
+              color: '#4b5563',
+              textDecoration: 'none',
+              transition: 'color 0.2s'
+            }}>
               Pricing
             </Link>
-            <Link href="/dashboard" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <Link href="/dashboard" style={{
+              padding: '0.5rem 1rem',
+              background: '#2563eb',
+              color: 'white',
+              borderRadius: '0.5rem',
+              textDecoration: 'none',
+              transition: 'background 0.2s'
+            }}>
               Dashboard
             </Link>
           </div>
@@ -21,29 +54,72 @@ export default function Home() {
       </header>
 
       {/* Hero */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center space-y-8">
-          <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 leading-tight">
+      <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '5rem 1rem' }}>
+        <div style={{ textAlign: 'center' }}>
+          <h1 style={{
+            fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
+            fontWeight: 'bold',
+            color: '#111827',
+            lineHeight: '1.2',
+            marginBottom: '2rem'
+          }}>
             Never Lose an AI Conversation Again
           </h1>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p style={{
+            fontSize: '1.25rem',
+            color: '#4b5563',
+            maxWidth: '42rem',
+            margin: '0 auto 3rem',
+            lineHeight: '1.6'
+          }}>
             Capture, organize, and search AI outputs from ChatGPT, Claude, Gemini, and more. 
             Your personal AI knowledge base.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="#install" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg shadow-lg hover:shadow-xl">
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '1rem',
+            marginBottom: '5rem'
+          }}>
+            <Link href="#install" style={{
+              padding: '1rem 2rem',
+              background: '#2563eb',
+              color: 'white',
+              borderRadius: '0.5rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              fontSize: '1.125rem',
+              boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+              transition: 'all 0.2s'
+            }}>
               🚀 Install Chrome Extension
             </Link>
             
-            <Link href="/dashboard" className="px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 transition-colors text-lg">
+            <Link href="/dashboard" style={{
+              padding: '1rem 2rem',
+              border: '2px solid #d1d5db',
+              color: '#374151',
+              borderRadius: '0.5rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              fontSize: '1.125rem',
+              transition: 'all 0.2s'
+            }}>
               Try Dashboard
             </Link>
           </div>
 
           {/* Features */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '2rem',
+            marginTop: '5rem'
+          }}>
             {[
               {
                 icon: '🌍',
@@ -76,14 +152,26 @@ export default function Home() {
                 description: 'Download as files, push to GitHub, or export to tools'
               }
             ].map((feature, i) => (
-              <div key={i} className="p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border border-gray-100">
-                <div className="text-4xl mb-4">
+              <div key={i} style={{
+                padding: '1.5rem',
+                background: 'white',
+                borderRadius: '0.75rem',
+                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                border: '1px solid #f3f4f6',
+                transition: 'box-shadow 0.2s'
+              }}>
+                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                <h3 style={{
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
+                  marginBottom: '0.5rem',
+                  color: '#111827'
+                }}>
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p style={{ color: '#4b5563', lineHeight: '1.5' }}>
                   {feature.description}
                 </p>
               </div>
@@ -93,19 +181,21 @@ export default function Home() {
       </main>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 py-20 mt-20">
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Ready to get started?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Install the extension and start capturing in seconds
-          </p>
-          <Link href="#install" className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-lg shadow-xl">
-            Install Free Extension
-          </Link>
-        </div>
-      </section>
-    </div>
-  )
-}
+      <section style={{
+        background: 'linear-gradient(to right, #2563eb, #7c3aed)',
+        padding: '5rem 1rem',
+        marginTop: '5rem'
+      }}>
+        <div style={{
+          maxWidth: '56rem',
+          margin: '0 auto',
+          textAlign: 'center',
+          padding: '0 1rem'
+        }}>
+          <h2 style={{
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
+            color: 'white',
+            marginBottom: '1rem'
+          }}>
+            Ready to get st
