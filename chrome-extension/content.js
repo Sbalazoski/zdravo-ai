@@ -29,7 +29,7 @@ let isCapturing = false
 
 function init() {
   if (!platform) return
-  console.log(`🦄 Zdravo AI loaded on ${platform.name}`)
+  console.log(`Zdravo AI loaded on ${platform.name}`)
   addFloatingButton()
   addContextMenu()
   observeNewResponses()
@@ -40,10 +40,11 @@ function init() {
 function addFloatingButton() {
   const fab = document.createElement('div')
   fab.id = 'zdravo-ai-fab'
-  fab.innerHTML = `
-    <div class="fab-icon">🦄</div>
-    <div class="fab-count">${captureCount}</div>
-  `
+fab.innerHTML = `
+  <img src="${chrome.runtime.getURL('icons/icon48.png')}" 
+       style="width: 28px; height: 28px;" />
+  <div class="fab-count">${captureCount}</div>
+`
   fab.onclick = handleFabClick
   document.body.appendChild(fab)
   fab.title = 'Capture to Zdravo AI (Ctrl+Shift+C)'
