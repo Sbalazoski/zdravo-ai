@@ -137,3 +137,17 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Zdravo AI Specific
+web-app/.env.local
+web-app/.env*.local
+web-app/.vercel
+web-app/node_modules/
+
+# Chrome Extension
+chrome-extension/*.zip
+chrome-extension/*.crx
+
+# API Keys (extra protection)
+**/openai-key.txt
+**/*-credentials.json
