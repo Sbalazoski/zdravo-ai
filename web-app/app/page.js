@@ -62,6 +62,10 @@ export default function Home() {
       {/* Hero */}
       <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '5rem 1rem' }}>
         <div style={{ textAlign: 'center' }}>
+        <img src="/logo.png" alt="Zdravo AI" style={{ 
+  height: '80px', 
+  marginBottom: '2rem' 
+}} />
           <h1 style={{
             fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
             fontWeight: 'bold',
