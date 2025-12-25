@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿# 🦄 Zdravo AI
+Zdravo AI
 
 Capture, organize, and search AI outputs from anywhere.
 
@@ -39,25 +38,3 @@ zdravo-ai/
 5. `npm run dev`
 6. Open http://localhost:3000
 
-## Deploy to Vercel
-1. Push to GitHub
-2. Import to Vercel
-3. Add Postgres database
-4. Set environment variables
-5. Deploy!
-
-## Revenue Model
-- Free: $0 (50 clips/month)
-- Pro: $9/mo (unlimited + AI)
-- Team: $29/mo (collaboration)
-
-## Next Steps
-1. Replace icon placeholders in chrome-extension/icons/
-2. Get OpenAI API key
-3. Set up Vercel Postgres
-4. Deploy web app
-5. Update API_URL in content.js
-6. Launch! 🚀
-=======
-# zdravo-ai
->>>>>>> f7a502d40d3aca737abd74f8888c53abb35d16b0
