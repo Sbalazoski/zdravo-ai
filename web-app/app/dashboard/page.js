@@ -80,25 +80,32 @@ export default function Dashboard() {
     URL.revokeObjectURL(url)
   }
 
-  return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%)', padding: '2rem', color: 'white', fontFamily: 'sans-serif' }}>
-      {/* Header */}
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem' }}>🦄 Zdravo AI</h1>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <div style={{ fontSize: '14px', opacity: 0.7 }}>
-            {stats.total} clips • {stats.thisWeek} this week
-          </div>
-          <Link href="/stats">
-            <button style={{
-              padding: '8px 16px',
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '8px',
-              color: 'white',
-              cursor: 'pointer',
-              fontSize: '14px'
-            }}>
+return (
+  <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%)', padding: '2rem', color: 'white', fontFamily: 'sans-serif' }}>
+    {/* Header */}
+    <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <img 
+          src="/logo.png" 
+          alt="Zdravo AI"
+          style={{ height: '36px', width: 'auto' }}
+        />
+        <h1 style={{ fontSize: '2rem', margin: 0 }}>Zdravo AI</h1>
+      </div>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <div style={{ fontSize: '14px', opacity: 0.7 }}>
+          {stats.total} clips • {stats.thisWeek} this week
+        </div>
+        <Link href="/stats">
+          <button style={{
+            padding: '8px 16px',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '8px',
+            color: 'white',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}>
               📊 Stats
             </button>
           </Link>
