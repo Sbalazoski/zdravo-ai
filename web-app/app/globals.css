@@ -1,3 +1,10 @@
+/* Global background (matches Home wrapper gradient) */
+body {
+  background: radial-gradient(circle at top, #22d3ee 0, #0f172a 40%, #020617 100%);
+  color: #e5e7eb;
+}
+
+/* Logo animations */
 .logo-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -6,128 +13,187 @@
   animation: pulse 3s ease-in-out infinite;
 }
 
+/* Small UI micro interactions */
+button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+/* Header buttons */
 .btn-primary,
 .btn-ghost,
 .btn-large-primary,
 .btn-large-ghost {
-  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
-    background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.18s ease-out,
+    background 0.18s ease-out,
+    border-color 0.18s ease-out,
+    color 0.18s ease-out;
 }
 
-/* Header buttons */
+/* Header primary (right button) – unicorn teal */
 .btn-primary {
   padding: 10px 20px;
-  background: white;
+  background: linear-gradient(135deg, #22c55e, #22d3ee);
   border: none;
-  border-radius: 8px;
-  color: #667eea;
-  font-weight: bold;
+  border-radius: 999px;
+  color: #020617;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
 }
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(34, 197, 94, 0.5);
 }
 
+/* Header ghost (left button) – subtle glass */
 .btn-ghost {
   padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  border-radius: 999px;
+  color: #e5e7eb;
+  font-weight: 500;
   cursor: pointer;
 }
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(15, 23, 42, 0.9);
+  border-color: rgba(226, 232, 240, 0.8);
   transform: translateY(-1px);
 }
 
-/* Hero buttons */
+/* Hero primary CTA – bigger, louder */
 .btn-large-primary {
   padding: 16px 32px;
-  background: white;
+  background: radial-gradient(circle at 20% 0, #a855f7, #22d3ee);
   border: none;
-  border-radius: 12px;
-  color: #667eea;
+  border-radius: 999px;
+  color: #020617;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 18px 60px rgba(79, 70, 229, 0.55),
+    0 0 0 1px rgba(15, 23, 42, 0.7);
+  position: relative;
+  overflow: hidden;
+}
+.btn-large-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(248, 250, 252, 0.5) 35%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease-out;
+}
+.btn-large-primary:hover::after {
+  transform: translateX(120%);
 }
 .btn-large-primary:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
+/* Hero secondary CTA – outlined pill */
 .btn-large-ghost {
   padding: 16px 32px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  color: white;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  border-radius: 999px;
+  color: #e5e7eb;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
 }
 .btn-large-ghost:hover {
-  background: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px) scale(1.02);
+  background: rgba(15, 23, 42, 0.95);
+  border-color: #22d3ee;
+  transform: translateY(-2px) scale(1.01);
 }
 
-/* Feature cards */
+/* Feature cards – glassmorphism + neon border on hover */
 .feature-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.75));
+  backdrop-filter: blur(20px);
   padding: 2rem;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.75);
   transform: translateY(0);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out,
-    border-color 0.2s ease-out, background 0.2s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: conic-gradient(
+    from 220deg,
+    rgba(34, 211, 238, 0.3),
+    rgba(129, 140, 248, 0.35),
+    rgba(236, 72, 153, 0.35),
+    rgba(34, 211, 238, 0.3)
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+  z-index: -1;
+}
+.feature-card:hover::before {
+  opacity: 1;
 }
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.95);
+  border-color: rgba(248, 250, 252, 0.18);
 }
 
-/* CTA */
+/* CTA block – card-like, center of attention */
 .cta-pop {
   animation: cta-pop 0.5s ease-out;
+  box-shadow: 0 26px 90px rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.45);
 }
 
-/* Background orbs */
+/* Background orbs – more unicorn gradient and motion */
 .orb {
   position: absolute;
   border-radius: 999px;
-  filter: blur(45px);
-  opacity: 0.45;
+  filter: blur(48px);
+  opacity: 0.55;
+  animation: orb-move 18s ease-in-out infinite alternate;
 }
+
 .orb-1 {
   width: 260px;
   height: 260px;
-  background: rgba(96, 165, 250, 0.85);
-  top: -40px;
-  left: -60px;
-}
-.orb-2 {
-  width: 320px;
-  height: 320px;
-  background: rgba(129, 140, 248, 0.85);
-  top: 40%;
-  right: -120px;
-}
-.orb-3 {
-  width: 220px;
-  height: 220px;
-  background: rgba(236, 72, 153, 0.75);
-  bottom: -80px;
-  left: 20%;
+  background: radial-gradient(circle at 30% 10%, #22d3ee, #0ea5e9);
+  top: -60px;
+  left: -80px;
 }
 
-/* Micro-animations */
+.orb-2 {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle at 10% 0, #a855f7, #4f46e5);
+  top: 35%;
+  right: -140px;
+}
+
+.orb-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle at 40% 0, #f97316, #ec4899);
+  bottom: -100px;
+  left: 15%;
+}
+
+/* Floating / pulsing */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-8px); }
@@ -135,27 +201,58 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 0.95; }
-  50% { transform: scale(1.05); opacity: 1; }
+  0%   { transform: scale(1); opacity: 0.95; }
+  50%  { transform: scale(1.06); opacity: 1; }
   100% { transform: scale(1); opacity: 0.95; }
 }
 
+/* CTA pop-in */
 @keyframes cta-pop {
-  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  0% { transform: scale(0.95) translateY(8px); opacity: 0; }
   100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-/* Little pill */
+/* Orb movement – subtle parallax motion */
+@keyframes orb-move {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  40% {
+    transform: translate3d(16px, -24px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-12px, 18px, 0) scale(1.03);
+  }
+}
+
+/* Pill/badge above hero headline – product hunt style */
 .pill-beta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.9rem;
+  padding: 0.35rem 0.95rem;
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.7);
+  background: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.7);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   margin-bottom: 1.5rem;
+  color: #e5e7eb;
+}
+.pill-beta::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #22c55e 0, #16a34a 50%, transparent 100%);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+}
+
+/* Optional: subtle section divider text (if you add sections later) */
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #9ca3af;
 }
