@@ -61,28 +61,34 @@ export default function Pricing() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3rem 1rem' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      padding: '2rem'
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <Link href="/" style={{
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
-            background: 'linear-gradient(to right, #667eea, #764ba2)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textDecoration: 'none',
-            display: 'inline-block',
-            marginBottom: '2rem'
-          }}>
-           <div style={{ marginBottom: '2rem' }}>
-  <img src="/logo.png" alt="Zdravo AI" style={{ height: '48px' }} />
-</div> Zdravo AI
+        <div style={{ textAlign: 'center', color: 'white', marginBottom: '4rem' }}>
+          <Link href="/" style={{ textDecoration: 'none', color: 'white' }}>
+            <div style={{ 
+              marginBottom: '2rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              justifyContent: 'center'
+            }}>
+              <img 
+                src="/logo-white.png" 
+                alt="Zdravo AI" 
+                style={{ height: '48px' }}
+              />
+              <span style={{ fontSize: '32px', fontWeight: 'bold' }}>Zdravo AI</span>
+            </div>
           </Link>
-          <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+          <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
             Simple, Transparent Pricing
           </h1>
-          <p style={{ fontSize: '1.25rem', color: '#94a3b8' }}>
+          <p style={{ fontSize: '1.2rem', opacity: 0.9 }}>
             Start free. Upgrade when you need more power.
           </p>
         </div>
@@ -90,114 +96,150 @@ export default function Pricing() {
         {/* Pricing Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '2rem',
-          marginBottom: '5rem'
+          marginBottom: '4rem'
         }}>
-          {plans.map((plan, index) => (
-            <div key={index} style={{
-              background: plan.popular ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'rgba(255,255,255,0.05)',
-              border: plan.popular ? 'none' : '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '1rem',
-              padding: '2rem',
-              position: 'relative'
-            }}>
+          {plans.map(plan => (
+            <div
+              key={plan.name}
+              style={{
+                background: plan.popular 
+                  ? 'white'
+                  : 'rgba(255,255,255,0.1)',
+                backdropFilter: 'blur(10px)',
+                border: plan.popular 
+                  ? '3px solid #ffd700'
+                  : '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '24px',
+                padding: '2rem',
+                position: 'relative',
+                color: plan.popular ? '#333' : 'white'
+              }}
+            >
               {plan.popular && (
                 <div style={{
                   position: 'absolute',
                   top: '-12px',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  background: '#fbbf24',
-                  color: '#000',
-                  padding: '0.25rem 1rem',
-                  borderRadius: '1rem',
-                  fontSize: '0.75rem',
+                  background: '#ffd700',
+                  color: '#333',
+                  padding: '6px 16px',
+                  borderRadius: '20px',
+                  fontSize: '12px',
                   fontWeight: 'bold'
                 }}>
-                  ⭐ MOST POPULAR
+                  ✨ MOST POPULAR
                 </div>
               )}
 
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+              <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>
                 {plan.name}
-              </h3>
-              <div style={{ marginBottom: '1.5rem' }}>
+              </h2>
+              
+              <div style={{ marginBottom: '2rem' }}>
                 <span style={{ fontSize: '3rem', fontWeight: 'bold' }}>
                   {plan.price}
                 </span>
-                <span style={{ fontSize: '1rem', color: plan.popular ? 'rgba(255,255,255,0.8)' : '#94a3b8' }}>
+                <span style={{ fontSize: '1rem', opacity: 0.7 }}>
                   /{plan.period}
                 </span>
               </div>
 
-              <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
-                {plan.features.map((feature, i) => (
-                  <li key={i} style={{ padding: '0.5rem 0', display: 'flex', gap: '0.5rem' }}>
-                    <span style={{ color: '#4ade80' }}>✓</span>
-                    <span>{feature}</span>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                marginBottom: '2rem'
+              }}>
+                {plan.features.map(feature => (
+                  <li key={feature} style={{
+                    padding: '0.75rem 0',
+                    borderBottom: `1px solid ${plan.popular ? '#eee' : 'rgba(255,255,255,0.1)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <span style={{ color: '#4caf50' }}>✓</span>
+                    {feature}
                   </li>
                 ))}
-                {plan.limitations.map((limitation, i) => (
-                  <li key={`lim-${i}`} style={{ padding: '0.5rem 0', display: 'flex', gap: '0.5rem', opacity: 0.5 }}>
+                {plan.limitations.map(limitation => (
+                  <li key={limitation} style={{
+                    padding: '0.75rem 0',
+                    borderBottom: `1px solid ${plan.popular ? '#eee' : 'rgba(255,255,255,0.1)'}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    opacity: 0.5
+                  }}>
                     <span>✗</span>
-                    <span>{limitation}</span>
+                    {limitation}
                   </li>
                 ))}
               </ul>
 
-              <Link href={plan.link} style={{
-                display: 'block',
-                textAlign: 'center',
-                padding: '0.75rem',
-                background: plan.popular ? 'white' : 'rgba(102, 126, 234, 0.2)',
-                color: plan.popular ? '#667eea' : 'white',
-                borderRadius: '0.5rem',
-                fontWeight: 'bold',
-                textDecoration: 'none'
-              }}>
-                {plan.cta}
+              <Link href={plan.link}>
+                <button style={{
+                  width: '100%',
+                  padding: '14px',
+                  background: plan.popular 
+                    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                    : 'rgba(255,255,255,0.2)',
+                  border: plan.popular ? 'none' : '2px solid white',
+                  borderRadius: '12px',
+                  color: 'white',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer'
+                }}>
+                  {plan.cta}
+                </button>
               </Link>
             </div>
           ))}
         </div>
 
         {/* FAQ */}
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{
+          background: 'rgba(255,255,255,0.1)',
+          backdropFilter: 'blur(10px)',
+          borderRadius: '24px',
+          padding: '3rem',
+          color: 'white'
+        }}>
+          <h2 style={{ fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>
             Frequently Asked Questions
           </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {[
-              {
-                q: 'Can I try Pro for free?',
-                a: 'Yes! We offer a 14-day free trial of Pro. No credit card required.'
-              },
-              {
-                q: 'What happens if I exceed my limits on the Free plan?',
-                a: 'Your existing clips remain accessible. You\'ll be prompted to upgrade to continue capturing.'
-              },
-              {
-                q: 'Can I cancel anytime?',
-                a: 'Absolutely. Cancel anytime from your dashboard. No questions asked.'
-              },
-              {
-                q: 'Do you offer refunds?',
-                a: 'Yes, we offer a 30-day money-back guarantee if you\'re not satisfied.'
-              }
-            ].map((faq, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.05)',
-                padding: '1.5rem',
-                borderRadius: '0.5rem'
-              }}>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
-                  {faq.q}
-                </h3>
-                <p style={{ color: '#94a3b8' }}>{faq.a}</p>
-              </div>
-            ))}
-          </div>
+          
+          {[
+            {
+              q: 'Can I try Pro for free?',
+              a: 'Yes! We offer a 14-day free trial of Pro. No credit card required.'
+            },
+            {
+              q: 'What happens if I exceed my limits on the Free plan?',
+              a: 'Your existing clips remain accessible. You\'ll be prompted to upgrade to continue capturing.'
+            },
+            {
+              q: 'Can I cancel anytime?',
+              a: 'Absolutely. Cancel anytime from your dashboard. No questions asked.'
+            },
+            {
+              q: 'Do you offer refunds?',
+              a: 'Yes, we offer a 30-day money-back guarantee if you\'re not satisfied.'
+            }
+          ].map((faq, i) => (
+            <div key={i} style={{
+              background: 'rgba(255,255,255,0.05)',
+              padding: '1.5rem',
+              borderRadius: '12px',
+              marginBottom: '1rem'
+            }}>
+              <h3 style={{ marginBottom: '0.5rem' }}>{faq.q}</h3>
+              <p style={{ opacity: 0.9, margin: 0 }}>{faq.a}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
