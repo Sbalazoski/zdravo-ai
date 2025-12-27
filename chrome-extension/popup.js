@@ -1,33 +1,53 @@
-﻿chrome.storage.local.get(['clips'], (result) => {
-  const clips = result.clips || []
-  document.getElementById('clipCount').textContent = clips.length
-  const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000)
-  const weekCount = clips.filter(c => new Date(c.timestamp).getTime() > oneWeekAgo).length
-  document.getElementById('weekCount').textContent = weekCount
-})
+﻿/**
+ * Zdravo AI - Popup Controller
+ */
 
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-  const hostname = new URL(tabs[0].url).hostname
-  const platforms = {
-    'chat.openai.com': 'ChatGPT',
-    'claude.ai': 'Claude',
-    'gemini.google.com': 'Gemini',
-    'copilot.microsoft.com': 'Copilot'
+document.addEventListener('DOMContentLoaded', () => {
+  updateStats()
+  detectPlatform()
+
+  document.getElementById('captureBtn').onclick = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: 'captureNow' })
+        window.close()
+      }
+    })
   }
-  document.getElementById('platform').textContent = platforms[hostname] || 'Not Detected'
+
+  document.getElementById('dashboardBtn').onclick = () => {
+    chrome.tabs.create({ url: 'http://localhost:3000/dashboard' })
+  }
 })
 
-document.getElementById('captureBtn').addEventListener('click', () => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.tabs.sendMessage(tabs[0].id, { action: 'captureNow' })
-    window.close()
+function updateStats() {
+  chrome.storage.local.get(['clips'], (result) => {
+    const clips = result.clips || []
+    document.getElementById('clipCount').innerText = clips.length
+
+    // Count this week
+    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+    const weekClips = clips.filter(c => c.id > weekAgo)
+    document.getElementById('weekCount').innerText = weekClips.length
   })
-})
+}
 
-document.getElementById('dashboardBtn').addEventListener('click', () => {
-  chrome.tabs.create({ url: 'https://zdravoai.com/dashboard' })
-})
+function detectPlatform() {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (!tabs[0]) return
+    const url = new URL(tabs[0].url)
+    const host = url.hostname
 
-document.getElementById('settingsBtn').addEventListener('click', () => {
-  chrome.tabs.create({ url: 'https://zdravoai.com/settings' })
-})
+    const platformEl = document.getElementById('platform')
+    if (host.includes('chatgpt.com') || host.includes('chat.openai.com')) {
+      platformEl.innerText = 'ChatGPT'
+    } else if (host.includes('claude.ai')) {
+      platformEl.innerText = 'Claude'
+    } else if (host.includes('gemini.google.com')) {
+      platformEl.innerText = 'Gemini'
+    } else {
+      platformEl.innerText = 'Unsupported'
+      platformEl.style.opacity = '0.5'
+    }
+  })
+}

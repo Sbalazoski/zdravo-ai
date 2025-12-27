@@ -1,8 +1,8 @@
 ﻿{
   "manifest_version": 3,
-  "name": "Zdravo AI - Capture Anywhere",
-  "version": "1.0.0",
-  "description": "Capture and organize AI outputs from ChatGPT, Claude, and more",
+  "name": "Zdravo AI - Universal AI Memory",
+  "version": "1.1.0",
+  "description": "Capture and organize AI outputs from ChatGPT, Claude, and Gemini silently.",
   "permissions": [
     "storage",
     "activeTab",
@@ -10,12 +10,13 @@
     "scripting"
   ],
   "host_permissions": [
+    "https://chatgpt.com/*",
     "https://chat.openai.com/*",
     "https://claude.ai/*",
     "https://gemini.google.com/*",
     "https://copilot.microsoft.com/*",
-    "https://*/*",
-    "http://*/*"
+    "https://www.zdravoai.com/*",
+    "http://localhost:3000/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -23,13 +24,18 @@
   "content_scripts": [
     {
       "matches": [
+        "https://chatgpt.com/*",
         "https://chat.openai.com/*",
         "https://claude.ai/*",
         "https://gemini.google.com/*",
         "https://copilot.microsoft.com/*"
       ],
-      "js": ["content.js"],
-      "css": ["styles.css"],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
       "run_at": "document_end"
     }
   ],
@@ -45,5 +51,15 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
 }

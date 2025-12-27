@@ -8,13 +8,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.5.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.0.0",
+    "framer-motion": "^12.23.26",
+    "lucide-react": "^0.562.0",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
+    "openai": "^4.20.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "next-auth": "^4.24.5",
-    "@vercel/postgres": "^0.5.1",
-    "openai": "^4.20.1",
-    "date-fns": "^3.0.0"
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18"
   }
 }
-

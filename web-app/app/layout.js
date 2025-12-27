@@ -1,15 +1,17 @@
-﻿export const metadata = {
-  title: 'Zdravo AI - Never Lose an AI Conversation',
-  description: 'Capture, organize, and search AI outputs from ChatGPT, Claude, and more',
+﻿import './globals.css'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'Zdravo AI - The Universal AI Memory Layer',
+  description: 'Capture, organize, and search AI outputs from ChatGPT, Claude, Gemini, and more. Your centralized AI brain.',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body style={{ margin: 0, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+      <body className={`${inter.className} min-h-screen bg-background text-white antialiased`}>
         {children}
       </body>
     </html>
