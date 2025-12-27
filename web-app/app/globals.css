@@ -1,0 +1,161 @@
+.logo-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.logo-pulse {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.btn-primary,
+.btn-ghost,
+.btn-large-primary,
+.btn-large-ghost {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out,
+    background 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+/* Header buttons */
+.btn-primary {
+  padding: 10px 20px;
+  background: white;
+  border: none;
+  border-radius: 8px;
+  color: #667eea;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-ghost {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+/* Hero buttons */
+.btn-large-primary {
+  padding: 16px 32px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  color: #667eea;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+.btn-large-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.btn-large-ghost {
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-large-ghost:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Feature cards */
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out,
+    border-color 0.2s ease-out, background 0.2s ease-out;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* CTA */
+.cta-pop {
+  animation: cta-pop 0.5s ease-out;
+}
+
+/* Background orbs */
+.orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(45px);
+  opacity: 0.45;
+}
+.orb-1 {
+  width: 260px;
+  height: 260px;
+  background: rgba(96, 165, 250, 0.85);
+  top: -40px;
+  left: -60px;
+}
+.orb-2 {
+  width: 320px;
+  height: 320px;
+  background: rgba(129, 140, 248, 0.85);
+  top: 40%;
+  right: -120px;
+}
+.orb-3 {
+  width: 220px;
+  height: 220px;
+  background: rgba(236, 72, 153, 0.75);
+  bottom: -80px;
+  left: 20%;
+}
+
+/* Micro-animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.95; }
+}
+
+@keyframes cta-pop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Little pill */
+.pill-beta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 1.5rem;
+}
