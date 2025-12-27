@@ -30,13 +30,20 @@ export default function Home() {
             WebkitTextFillColor: 'transparent',
             textDecoration: 'none'
           }}>
-           <Link
-  href="/"
-  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
->
-  <img src="/logo.svg" alt="Zdravo AI logo" style={{ height: '24px' }} />
-  Zdravo AI   }}>
-</Link>
+          <div style={{
+  fontWeight: 'bold',
+  color: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.75rem'
+}}>
+  <img 
+    src="/logo-white.png" 
+    alt="Zdravo AI" 
+    style={{ height: '36px' }}
+  />
+  <span style={{ fontSize: '28px' }}>Zdravo AI</span>
+</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
             <Link href="/pricing" style={{
               color: '#4b5563',
@@ -61,20 +68,21 @@ export default function Home() {
 
       {/* Hero */}
       <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '5rem 1rem' }}>
-        <div style={{ textAlign: 'center' }}>
-        <img src="/logo.png" alt="Zdravo AI" style={{ 
-  height: '80px', 
-  marginBottom: '2rem' 
-}} />
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 3.75rem)',
-            fontWeight: 'bold',
-            color: '#111827',
-            lineHeight: '1.2',
-            marginBottom: '2rem'
-          }}>
-            Never Lose an AI Conversation Again
-          </h1>
+      <div style={{ marginBottom: '2rem' }}>
+  <img 
+    src="/logo-white.png" 
+    alt="Zdravo AI" 
+    style={{ height: '80px', marginBottom: '1rem' }}
+  />
+</div>
+<h1 style={{
+  fontSize: '4rem',
+  fontWeight: 'bold',
+  marginBottom: '1.5rem',
+  lineHeight: '1.2'
+}}>
+  Never Lose an AI Conversation Again
+</h1>
           
           <p style={{
             fontSize: '1.25rem',
